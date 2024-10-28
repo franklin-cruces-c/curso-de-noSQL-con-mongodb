@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  mongo:
+#    image: mongo:latest
+    image: mongo:4.2.3    
+    container_name: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+#      - mongo-data:/data/db
+      - mongo-data-4.2.3:/data/db      
+    command: mongod --bind_ip_all
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+volumes:
+#  mongo-data:
+    mongo-data-4.2.3:    
+
+#Version de MongoDB actual 8.0.3
+#Version de MongoDB del curso 4.2.3
+#1.mongosh --authenticationDatabase "admin" -u "root" -p "example"
+#2.use admin
+#db.createUser({
+#    user: "root",
+#    pwd: "example",
+#    roles: [{ role: "root", db: "admin" }]
+#  })
+#3.use admin
+#4.db.getUsers()
+
+  
+#mongodb://root:example@127.0.0.1:27017/?authSource=admin
+
+#mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+2.3.2
