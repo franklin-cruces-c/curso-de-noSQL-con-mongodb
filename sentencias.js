@@ -49,3 +49,16 @@ db.users.find(
     {age:false} // lista todos los atributos menos la edad
 ).pretty()
 
+//operador no equals
+//$ne -> diferente a
+
+// Obtengamos todos los usarios cuya edad sea diferente a 25
+db.users.find(
+    {age:{$ne: 25}}
+).pretty()
+
+//$eq -> igual a
+//Obtengamos todos los usuarios cuya edad sea igual a 25
+db.users.find(
+    {age:{$eq: 25}}
+).pretty()
