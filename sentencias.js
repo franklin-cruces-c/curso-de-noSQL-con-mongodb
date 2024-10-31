@@ -316,3 +316,19 @@ db.users.updateOne(
         $set:{support: true}
     }
 )
+
+/**
+ * Operador Unset
+ * Permite eliminar atributos a los documentos
+ */
+
+// Eliminar atributo createAt
+
+db.users.updateOne(
+    {
+        createdAt: {$exists: true}
+    },
+    {
+        $unset: {createdAt: true}
+    }
+)
