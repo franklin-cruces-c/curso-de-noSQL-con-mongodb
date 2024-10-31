@@ -397,3 +397,26 @@ db.users.updateOne(
     }
 )
 //{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+
+/**
+ * Eliminar documentos de una colección 
+*  remove({})
+ */
+// Eliminar el usuario Luis
+db.users.remove(
+    {name: 'Luis'}
+)
+// WriteResult({ "nRemoved" : 1 })
+
+//Eliminar todos los documentos de una coleccion
+db.books.remove({})
+//WriteResult({ "nRemoved" : 8 })
+
+// drop() -> eliminar una colección
+db.books.drop()
+//true
+
+// dropDatabase() -> eliminar una base de datos
+db.dropDatabase()
+//{ "dropped" : "test7", "ok" : 1 }
