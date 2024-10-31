@@ -263,3 +263,19 @@ db.users.find(
         
     }
 )
+/**
+ * 
+Listado de los tipos más comunes en MongoDB
+Tipo	Número	Alías
+Double	1	'double'
+String	2	'string'
+Object	3	'Object'
+Array	4	'array'
+ObjectId	7	'objectId'
+Boolean	8	'boolean'
+Date	9	'date'
+Null	10	'null'
+Regular Expression	11	'regex'
+Timestamp	17	'timestamp'
+ */
+
