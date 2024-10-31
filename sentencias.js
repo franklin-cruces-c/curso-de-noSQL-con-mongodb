@@ -221,3 +221,45 @@ db.users.find(
         name: {$nin:['Eduardo','Uriel','Marines']}
     }
 )
+
+// Realizar consultas sobre los atributos no sobre los valores
+//insert nuevo usuario
+var user5 = {
+    name: 'Rafael',
+    email: 'rafa@codigofacilito.com',
+    support: true,
+    createdAt: new Date()
+}
+
+// Obtener todos los usuarios que posean apellido
+db.users.find(
+    {
+        last_name:{
+            $exists:true
+        }
+    }
+)
+// Obtener todos los usuarios que no posean apellido
+db.users.find(
+    {
+        last_name:{
+            $exists:false
+        }
+    }
+)
+// Obtener todos los usuarios cuyo atributo createdAt sea de tipo date
+db.users.find(
+    {
+        createdAt: {$type: 'date'}
+    }
+)
+// Obtener todos los usuarios cuyo atributo createdAt exista y sea de tipo date
+db.users.find(
+    {
+        $and:[
+            {createdAt: {$exists:true}},
+            {createdAt: {$type: 'date'}}
+        ]
+        
+    }
+)
