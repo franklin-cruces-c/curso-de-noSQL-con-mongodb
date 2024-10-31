@@ -183,3 +183,26 @@ db.books.insertMany(
         {title: 'El alquimista', sales: 65}
     ]
 )
+
+// like -> expresión regular
+// Obtener todos los libros cuyo titulo comience con EL
+// WHERE title like 'El%'
+db.books.find(
+    {
+        title: /^El/
+    }
+)
+// Obtener todos los libros cuyo titulo  finalice con s
+// WHERE title like '%s'
+db.books.find(
+    {
+        title: /s$/
+    }
+)
+// Obtener todos los libros cuyo titulo posea la palabra la
+// WHERE title like '%la%'
+db.books.find(
+    {
+        title: /la/
+    }
+)
