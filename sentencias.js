@@ -332,3 +332,68 @@ db.users.updateOne(
         $unset: {createdAt: true}
     }
 )
+/**
+ * Operador $inc para incrementar enteros
+ */
+
+//Incrementar la edad de Rafael de 26 a 27
+db.users.updateOne(
+    {name: "Rafael"},
+    {$inc:{age: 1}}
+)
+//Decrementar la edad de Rafael de 27 a 26
+db.users.updateOne(
+    {name: "Rafael"},
+    {$inc:{age: -1}}
+)
+//Incrementar la edad de Rafael agregandole 100
+db.users.updateOne(
+    {name: "Rafael"},
+    {$inc:{age: 100}}
+)
+//Decrementar la edad de Rafael quitandole 100
+db.users.updateOne(
+    {name: "Rafael"},
+    {$inc:{age: -100}}
+)
+
+/**
+ *  atributo upsert actualizar un documento que no se sabe si existe o no
+ */
+//Como no existe el usuario Luis en la collecion entonces no se modifica nada
+db.users.updateOne(
+    {name: 'Luis'},
+    {
+        $set:{ edad: 27}
+    }
+)
+//{ "acknowledged" : true, "matchedCount" : 0, "modifiedCount" : 0 }
+// al agregar el atribudo upsert si el documento no existe lo crea
+db.users.updateOne(
+    {name: 'Luis'},
+    {
+        $set:{ edad: 27}
+    },
+    {
+        upsert: true
+    }
+)
+/*
+{
+	"acknowledged" : true,
+	"matchedCount" : 0,
+	"modifiedCount" : 0,
+	"upsertedId" : ObjectId("6723d4076825a1f25808b0cd")
+}
+*/
+// Al ya existir no se crea un documento nuevo si no que se actualiza la edad a 28
+db.users.updateOne(
+    {name: 'Luis'},
+    {
+        $set:{ edad: 28}
+    },
+    {
+        upsert: true
+    }
+)
+//{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
