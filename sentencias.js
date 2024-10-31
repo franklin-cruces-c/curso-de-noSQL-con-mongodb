@@ -1,3 +1,12 @@
+/**
+ *Version de MongoDB actual 8.0.3
+ *Conectarse al cliente  shell de mongo 
+ * mongosh --authenticationDatabase "admin" -u "******" -p "*****" * 
+ * Version de MongoDB del curso 4.2.3 
+ * Conectarse al cliente  shell de mongo 
+ * mongo --authenticationDatabase "admin" -u "******" -p "*****" * 
+ */
+
 // inserOne -> inserta un documento
 // inserMany-> inserta mas de un documento 
 
@@ -62,3 +71,115 @@ db.users.find(
 db.users.find(
     {age:{$eq: 25}}
 ).pretty()
+
+
+// find -> Obtener mas de un documento
+//findOne -> Obtener solo un documento (No posee el metodo pretty)
+db.users.findOne(
+    {age:{$ne: 25}}
+)
+
+/**
+ * Operadores relacionales
+ */
+//Obtener todos los usuarios cuya edad sea mayor a 26
+db.users.find(
+    {
+        age:{
+            $gt:26 // > greater than
+        }
+    }
+)
+//Obtener todos los usuarios cuya edad sea mayor o igual a 26
+db.users.find(
+    {
+        age:{
+            $gte:26 // > greater than equals
+        }
+    }
+)
+//Obtener todos los usuarios cuya edad sea menor que 26
+db.users.find(
+    {
+        age:{
+            $lt:26 // > menor o igual que
+        }
+    }
+)
+//Obtener todos los usuarios cuya edad sea menor o igual a 26
+db.users.find(
+    {
+        age:{
+            $lte:26 // > menor o igual que
+        }
+    }
+)
+/**
+ * Operadores relacionales
+ * 
+ * $gt  >
+ * $gte >=
+ * $lt  <
+ * $lte >=
+ * $eq  ==
+ * $ne  !=
+ */
+
+/**
+ * Operadores lógicos
+ * $and y $or
+ */
+
+
+// Obtener todos los usuarios cuya edad sea mayor a 20 y menor a 26
+db.users.find(
+    {
+      $and:[
+        {age:{$gt: 20}},
+        {age:{$lt: 26}}
+        ]
+    }
+).pretty()
+
+// Obtener todos los usuarios cuyo nombre sea Eduardo o Uriel
+db.users.find(
+    {
+        $or:[
+            {name:"Eduardo"},
+            {name:"Uriel"}
+        ]
+    }
+).pretty()
+
+// Obtener todos los usuarios cuyo nombre sea Eduardo Ismael o Uriel o la edad sea mayor a 20 y menor a 25
+db.users.find(
+    {
+        $or:[
+            {name:"Eduardo Ismael"},
+            {name:"Uriel"},
+            {
+              $and:[
+                {age:{$gt:20}},
+                {age:{$lt:25}}
+              ]
+            }
+        ]
+    }
+).pretty()
+
+/**
+ * Expresiones regulares
+ */
+
+db.books.insertMany(
+    [
+        {title: 'Don Quijote de la Mancha', sales: 500},
+        {title: 'Historia de dos ciudades', sales: 200},
+        {title: 'El señor de los anillos', sales: 150},
+        {title: 'El principito', sales: 140},
+        {title: 'El hobbit', sales: 100},
+        {title: 'Alicia en el país de las maravillas', sales: 100},
+        {title: 'El código Da Vinci', sales: 80},
+        {title: 'El alquimista', sales: 65}
+    ]
+)
