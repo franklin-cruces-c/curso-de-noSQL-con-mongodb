@@ -288,4 +288,31 @@ var rafael = db.users.findOne(
 rafael.support = false
 // argumento un documento, si el documento posee id, el documento se actualiza, si no se crea un nuevo documento
 db.users.save(rafael)
+rafael.age = 27
+db.users.save(rafael)
 
+/**
+ * UpdateOne y UpdateMany
+ * update e insert -> deprecated
+ */
+
+// establecer el atributo support a los documentos que no lo poseen y se establecerá el valor por defecto a false
+
+db.users.updateMany(
+    {
+        support:{$exists: false}
+    },
+    {
+        $set: {
+            support: false
+        }
+    }
+)
+
+// actualizar support = true a Fernando
+db.users.updateOne(
+    {name: 'Fernando'},
+    {
+        $set:{support: true}
+    }
+)
