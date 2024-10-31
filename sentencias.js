@@ -279,3 +279,13 @@ Regular Expression	11	'regex'
 Timestamp	17	'timestamp'
  */
 
+/**
+ * Obtener y actualizar documentos
+ */
+var rafael = db.users.findOne(
+    {name:'Rafael'}
+)
+rafael.support = false
+// argumento un documento, si el documento posee id, el documento se actualiza, si no se crea un nuevo documento
+db.users.save(rafael)
+
