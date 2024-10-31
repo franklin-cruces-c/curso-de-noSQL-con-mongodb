@@ -206,3 +206,18 @@ db.books.find(
         title: /la/
     }
 )
+
+//Operador in
+// Obtener todos los usuarios cuyo nombe sea Eduardo o Uriel o Marines
+db.users.find(
+    {
+        name: {$in:['Eduardo','Uriel','Marines']}
+    }
+)
+//Operador  not in -> $nin
+// Obtener todos los usuarios cuyo nombe no sea Eduardo o Uriel o Marines
+db.users.find(
+    {
+        name: {$nin:['Eduardo','Uriel','Marines']}
+    }
+)
