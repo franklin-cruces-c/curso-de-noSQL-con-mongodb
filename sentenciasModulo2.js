@@ -278,4 +278,31 @@ db.users.updateMany(
         }
     }
 )
-
+/**
+ * Obtener elementos
+ * Operador $slice -> $position o $index
+ */
+// Por posicion
+db.users.find(
+    {
+        name: 'Eduardo'
+    },
+    {
+        _id: false, name: true, 
+        courses: {
+            $slice: 1 // int (Position) o [index]
+        }
+    }
+).pretty()
+// Por indice
+db.users.find(
+    {
+        name: 'Eduardo'
+    },
+    {
+        _id: false, name: true, 
+        courses: {
+            $slice: [0,3] // int (Position) o [index]
+        }
+    }
+).pretty()
