@@ -37,3 +37,26 @@ db.users.findOne(
 )
 // Tanto para busqueda con o sin equals, la lista debe ser exactamente igual y en el mismo orden
 
+/**
+ * Operador $all
+ * El orden no importa pero si que existan todos los valores del citerio de busqueda
+ */
+
+//Obtener todos los usuarios que posean por curso MongoDB
+db.users.find(
+    {
+        courses:{
+            $all:['MongoDB']
+        }
+    }
+).pretty()
+
+//Obtener todos los usuarios que posean por curso SQL y MongoDB
+db.users.find(
+    {
+        courses:{
+            $all:['SQL','MongoDB']
+        }
+    }
+).pretty()
+
