@@ -420,3 +420,43 @@ db.books.drop()
 // dropDatabase() -> eliminar una base de datos
 db.dropDatabase()
 //{ "dropped" : "test7", "ok" : 1 }
+
+
+/**
+ * Cursor
+ */
+
+for(i = 0; i< 100; i++){
+    db.demo.insert(
+        {name: 'user'+ i}
+    )
+}
+
+// find() retorna un cursor con una paginacion maxima de 20 elementos
+
+//metodo count() del cursor find() devuelve la cantidad de elementos
+db.demo.find().count()
+
+// Obtener cuantos usuarios tienen correo electronico codigofacilito
+db.users.find(
+    {email:/@codigofacilito.com$/}
+).count()
+
+//limit()
+// obtener los primeros dos usuarios de la coleccion users
+db.users.find().limit(2)
+
+//skip() saltar documentos
+
+//obtener el tercer usuario de la colección users
+db.users.find().skip(2).limit(1)
+
+//sort() ordenar documentos valor  1 ascendente  valor -1 descendente
+// Obtener el nombre de todos los usuarios ordenados alfabeticamente
+db.users.find(
+    {},
+    {_id:false, name: true}
+).sort(
+    { name: 1}
+)
+// find() retorna un cursor y findOne() retorna un documento
