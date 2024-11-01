@@ -182,3 +182,39 @@ db.users.updateOne(
         }
     }
 )
+
+/**
+ * Ordenar elementos de las listas
+ * operador $sort
+ */
+
+//se agregar algunos elementos a la lista de calificaciones de Fernando y establece que se ordene en forma ascendente
+db.users.updateOne(
+    {
+        name: 'Fernando'
+    },
+    {
+        $push:{
+            scores:{
+                $each:[10,10],
+                $sort: 1
+            }
+        }
+    }
+)
+
+//se agregar algunos elementos a la lista de calificaciones de Uriel 
+//y establece que se ordene en forma descendente
+db.users.updateOne(
+    {
+        name: 'Uriel'
+    },
+    {
+        $push:{
+            scores:{
+                $each:[7,7],
+                $sort: -1
+            }
+        }
+    }
+)
