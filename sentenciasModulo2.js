@@ -218,3 +218,30 @@ db.users.updateOne(
         }
     }
 )
+
+/**
+ * Eliminar elementos de las listas
+ * operador pull
+ */
+
+// Eliminar curso de Python en las listas de Rafael y Eduardo
+
+db.users.updateMany(
+    {name: {$in:['Rafael','Eduardo']}},
+    {
+        $pull:{
+            courses:'Python'
+        }
+    }
+)
+//{ "acknowledged" : true, "matchedCount" : 2, "modifiedCount" : 2 }
+
+// Eliminar varios elementos de la lista
+db.users.updateMany(
+    {name: 'Rafael'},
+    {
+        $pull:{
+            courses:{$in:['Base de datos','C#']}
+        }
+    }
+)
