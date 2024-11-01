@@ -494,3 +494,23 @@ db.users.findAndModify(
         new: true
     }
 )
+/**
+ * Renombrar atributos
+ * operador $rename
+ */
+// Renombrar atributo last_name a lastName
+db.users.updateMany(
+    {},
+    {
+        $rename: {
+            last_name: 'lastName'
+        }
+    }
+
+)
+/**
+ * Object _id
+ * Es único en cada maquina e incluso en cada instancia dentro de cada maquina, 
+ * tambien en su composicion lleva la fecha de creacion
+ */
+
