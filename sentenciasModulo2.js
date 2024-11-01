@@ -109,3 +109,33 @@ db.users.find(
     }
 ).pretty()
 
+/**
+ * Insertar elementos en listas
+ * operador $push
+ */
+
+// agregar cursos a Rafael y Eduardo
+
+// agregar curso de Python a Rafael
+db.users.updateOne(
+    {name: 'Rafael'},
+    { 
+        $push:{
+            courses: 'Python'
+        }
+    }
+)
+//agregar mas de un curso con $each y $push
+//agregar 3 cursos a Eduardo
+
+db.users.updateOne(
+    {name: 'Eduardo'},
+    { 
+        $push:{
+            courses:{
+                $each:['Django','Rails','Rust']
+            }
+        }
+    }
+)
+
