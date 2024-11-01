@@ -245,3 +245,37 @@ db.users.updateMany(
         }
     }
 )
+
+/**
+ * Actualizar un elemento de una lista  por indice 
+ * 
+ */
+
+// Actualizar una calificacion por indice
+// Primera calificacion (indice 0) cambiar el valor a 5 
+// para todos los documentos qu tengan una lista de calificaciones
+db.users.updateMany(
+    {
+        scores: { $exists: true}
+    },
+    {
+        $set:{
+            'scores.0': 5  //0 es el indice para este caso el primer elemento de la lista
+        }
+    }
+)
+
+// Actualizar cuando no se conoce el indice
+// Como no se la posicion voy a actualizar con 6 donde encuentre la primera coincidencia con valor 9
+db.users.updateMany(
+    {
+        scores: {$exists: true},
+        scores: 9
+        },
+    {
+        $set:{
+            'scores.$': 6
+        }
+    }
+)
+
