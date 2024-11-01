@@ -460,3 +460,37 @@ db.users.find(
     { name: 1}
 )
 // find() retorna un cursor y findOne() retorna un documento
+
+
+/**
+ * FindAndModify
+ * Busca y actualiza un objeto y retorna el objeto antes de su actualización
+ */
+
+// Buscar al usuario Rafael e incrementar su edad en 1
+db.users.findAndModify(
+    {
+        query: {
+         name: 'Rafael'
+        },
+        update: {
+         $inc: {
+             age: 1
+         }
+        }
+    }
+)
+// Buscar al usuario Rafael e incrementar su edad en 1, y devolver el objeto actualizado
+db.users.findAndModify(
+    {
+        query: {
+         name: 'Rafael'
+        },
+        update: {
+         $inc: {
+             age: 1
+         }         
+        },
+        new: true
+    }
+)
