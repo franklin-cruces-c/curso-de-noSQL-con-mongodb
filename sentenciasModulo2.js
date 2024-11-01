@@ -60,3 +60,19 @@ db.users.find(
     }
 ).pretty()
 
+//Obtener todos los usuarios que posean por curso SQL o Git
+db.users.find(
+    {
+        $or:[
+              {courses : 'SQL'},
+              {courses : 'Git'} 
+            ]
+    }
+).pretty()
+
+// Obtener todos los usuarios que posean por curso SQL (los cursos estan en una lista dentro de cada documento usuario)
+db.users.find(
+    {courses: 'SQL'}
+).pretty()
+
+
