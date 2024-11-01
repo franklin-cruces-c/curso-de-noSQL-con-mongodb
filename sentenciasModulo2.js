@@ -139,3 +139,46 @@ db.users.updateOne(
     }
 )
 
+/**
+ * Agregar elementos en una posicion determinada de la lista
+ * Operador $position
+ */
+
+//Agregar curso de Base de datos a Rafael en la posicion 0 de la lista
+db.users.updateOne(
+    {name: 'Rafael'},
+    {
+        $push:{
+            courses:{
+                $each:['Base de datos'],
+                $position: 0
+            }
+        }
+    }
+)
+
+//Agregar curso de Javascript a Rafael en la posicion 1 de la lista
+db.users.updateOne(
+    {name: 'Rafael'},
+    {
+        $push:{
+            courses:{
+                $each:['Javascript'],
+                $position: 1
+            }
+        }
+    }
+)
+
+//Agregar curso de C# y Apache Camel a Rafael en la posicion 1 de la lista
+db.users.updateOne(
+    {name: 'Rafael'},
+    {
+        $push:{
+            courses:{
+                $each:['C#','Apache Camel'],
+                $position: 1
+            }
+        }
+    }
+)
