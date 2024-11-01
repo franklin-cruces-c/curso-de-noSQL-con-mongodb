@@ -75,4 +75,37 @@ db.users.find(
     {courses: 'SQL'}
 ).pretty()
 
+// Agregar atributo calificaciones a los usuarios Fernando y Uriel
+
+db.users.updateOne(
+    {name: 'Fernando'},
+    {
+        $set: {
+            scores: [9,8,9,5,10]
+        }
+    }
+)
+
+db.users.updateOne(
+    {name: 'Uriel'},
+    {
+        $set: {
+            scores: [10,9,9,8,10]
+        }
+    }
+)
+
+// Obtener todos los usuarios que posean por lo menos una calificación de 10.
+db.users.find(
+    {scores: 10}
+).pretty()
+
+// Obtener todos los usuarios que hayan reprobado por lo menos una calficación.
+db.users.find(
+    {
+        scores:{
+            $lt:6
+        }
+    }
+).pretty()
 
