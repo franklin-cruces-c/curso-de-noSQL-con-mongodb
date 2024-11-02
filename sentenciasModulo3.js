@@ -75,3 +75,61 @@ db.users.find(
         _id: false, name: true, 'address.references' : {$slice : 1}
     }
 ).pretty()
+
+/**
+ * Actualizar elementos anidados
+ */
+// Agregamos a Uriel numero y referencias a su direccion postal
+db.users.updateOne(
+    {
+        name: 'Uriel'
+    },
+    {
+        $set: {
+            'address.number': 20,
+            'address.references': [
+                'Fuera de la casa se encuentra un parque',
+                'Fuera de la casa se encuentra un pino(árbol)'
+            ]
+        }
+    }
+)
+// Actualizamos el numero de la direccion postal de Uriel
+db.users.updateOne(
+    {
+        name: 'Uriel'
+    },
+    {
+        $set: {
+            'address.number': 25 
+        }
+    }
+)
+
+// Agregamos una nueva referencia a la direccion postal de Marines
+db.users.updateOne(
+    {name: 'Marines'},
+    {
+        $push:{
+            'address.references':{
+                $each: [
+                    'Fuera de la casa hay un rio',
+                    'En la esquina hay un campo de tenis'
+                ]
+            }
+        }
+    }
+)
+
+//Actualizamos la segunda referencia de la direccion postal de Marines cambiando a mayusculas la a inicial
+db.users.updateOne(
+    {
+        name: 'Marines',
+        'address.references': "a un costado de una tienda"
+    },
+    {
+        $set: {
+            'address.references.$': 'A un costado de una tienda'
+        }
+    }
+)
