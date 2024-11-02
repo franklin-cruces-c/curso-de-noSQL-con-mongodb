@@ -280,7 +280,7 @@ db.users.updateMany(
 )
 /**
  * Obtener elementos
- * Operador $slice -> $position o $index
+ * Operador $slice -> position o index
  */
 // Por posicion
 db.users.find(
@@ -304,5 +304,34 @@ db.users.find(
         courses: {
             $slice: [0,3] // int (Position) o [index]
         }
+    }
+).pretty()
+
+/**
+ * Busqueda de documentos por tamaño de sus listas
+ * 
+ */
+//Obtener todos los usuarios con 5 cursos
+db.users.find(
+    {
+        courses:{
+            $size:5
+        }
+    }
+).pretty()
+
+// Where 
+//Obtener todos los usuarios que posean por lo menos 3 cursos
+
+db.users.find(
+    {
+        $and:[
+            {
+                courses: {$exists: true}
+            },
+            {
+               $where: 'this.courses.length> 3'
+            }
+        ]        
     }
 ).pretty()
