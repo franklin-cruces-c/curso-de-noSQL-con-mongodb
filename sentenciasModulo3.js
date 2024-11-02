@@ -133,3 +133,94 @@ db.users.updateOne(
         }
     }
 )
+
+/**
+ * Listas de documentos anidados
+ * 
+ */
+
+/**
+ * Sustituir listas de string por listas documentos para los cursos en los usuarios
+ */ 
+//Quitamos las listas de string cursos
+db.users.updateMany(
+    {
+        courses: {$exists: true}
+    },
+    {
+        $unset: {
+            courses: true
+        }
+    }
+)
+
+// creamos las listas de documentos
+db.users.updateOne(
+    {name: 'Rafael'},
+    {
+        $set: {
+            courses:[
+                {
+                    title: 'MongoDB',
+                    progress: 50,
+                    completed: false
+                },
+                {
+                    title: 'Base de datos',
+                    progress: 100,
+                    completed: true
+                },
+                {
+                    title: 'Git',
+                    progress: 100,
+                    completed: true
+                }                
+            ]
+        }
+    }
+)
+
+db.users.updateOne(
+    {name: 'Eduardo'},
+    {
+        $set: {
+            courses:[
+                {
+                    title: 'MongoDB',
+                    progress: 50,
+                    completed: false
+                },
+                {
+                    title: 'Python',
+                    progress: 100,
+                    completed: true
+                },
+                {
+                    title: 'Ruby',
+                    progress: 80,
+                    completed: false
+                }                
+            ]
+        }
+    }
+)
+
+db.users.updateOne(
+    {name: 'Fernando'},
+    {
+        $set: {
+            courses:[
+                {
+                    title: 'VUE',
+                    progress: 50,
+                    completed: false
+                },
+                {
+                    title: 'Docker',
+                    progress: 50,
+                    completed: false
+                }             
+            ]
+        }
+    }
+)
