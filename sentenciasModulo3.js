@@ -268,3 +268,56 @@ db.users.find(
         _id:false, name: true, 'courses.title': true
     }
 ).pretty()
+
+/**
+ * Actualizar elementos de listas de documentos
+ */
+
+// Actualizar al 100 porciento uno de los cursos de Fernando (con el indice)
+db.users.updateOne(
+    {name: 'Fernando'},
+    {
+        $set:{
+            'courses.0.progress':100,
+            'courses.0.completed': true
+        }
+    }
+)
+
+// Actualizar al 100 porciento uno de los cursos de Fernando (sin conocer el indice)
+db.users.updateOne(
+    {  name: 'Fernando',
+       'courses.title':'Docker'
+    },
+    {
+        $set:{
+            'courses.$.progress':100,
+            'courses.$.completed': true
+        }
+    }
+)
+// Actualizar al 100 porciento uno de los cursos de Fernando (sin conocer el indice) 
+// Y agregar nuevos atributos a la lista de documentos
+db.users.updateOne(
+    {  name: 'Fernando',
+       'courses.title':'Docker'
+    },
+    {
+        $set:{
+            'courses.$.progress':100,
+            'courses.$.completed': true,
+            'courses.$.tutor':{ 'name': 'Cody'}
+        }
+    }
+)
+
+// Actualizar el tutor del curso Docker de Fernando con CodigoFacilito
+
+db.users.updateOne(
+    {name: 'Fernando', 'courses.title':'Docker'},
+    {
+        $set:{
+            'courses.$.tutor.name':'Codigo Facilito'
+        }
+    }
+)
