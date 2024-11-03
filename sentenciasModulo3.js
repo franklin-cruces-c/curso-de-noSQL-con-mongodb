@@ -254,3 +254,17 @@ db.users.find(
     }
 ).pretty()
 
+/**
+ * Proyecciones
+ * 
+ */
+
+//Obtener el nombre del usuario junto con el titulo de cada uno de sus cursos
+db.users.find(
+    {
+        courses :{$exists:true}
+    },
+    {
+        _id:false, name: true, 'courses.title': true
+    }
+).pretty()
