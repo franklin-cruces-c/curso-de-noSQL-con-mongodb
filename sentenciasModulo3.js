@@ -224,3 +224,33 @@ db.users.updateOne(
         }
     }
 )
+/**
+ * ElemMatch
+ * Obtener documentos a través de atributos dentro de listas
+ */
+
+// Obtener todos los usuarios que hayan completado por lo menos un curso
+db.users.find(
+    {
+        courses: {
+            $elemMatch:{
+                completed:true
+            }
+        }
+    }
+).pretty()
+
+
+// Obtener todos los usuarios con un progreso mayor a 80
+db.users.find(
+    {
+        courses:{
+            $elemMatch:{
+                progress:{
+                    $gte : 80
+                } 
+            }
+        }
+    }
+).pretty()
+
