@@ -60,3 +60,31 @@ db.users.aggregate(
 
     ]
 ).pretty()
+
+/**
+ * Proyecciones
+ * Los atributos a mostrar
+ */
+
+// mostrar el nombre y el listado de cursos de los usuarios que tengan mas de 25 años
+// y posean una lista de cursos y que tengan por apellido alvarez
+db.users.aggregate(
+    [
+        {
+            $match: {
+                age:{ $gt:25} // se reduce a 3 documentos
+            }        
+        },
+        {
+            $match: {
+                courses: {$exists: true} // se reduce a 2 documentos
+            }
+        },
+        {
+            $project: {
+                _id:false, name:true, courses:true
+            }
+        }
+
+    ]
+).pretty()
