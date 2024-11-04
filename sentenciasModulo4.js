@@ -212,3 +212,64 @@ db.users.aggregate(
 
     ]
 ).pretty()
+
+
+/**
+ * Operador $set
+ * 
+ */
+
+//obtener el promedio de calificaciones
+
+db.users.aggregate(
+    {
+        $match:{
+            scores: {$exists: true}
+        }
+    },
+    {        
+        $project:{
+            _id:false, name:true, scores:true
+        }
+    },
+    {
+        $set:{
+            suma:{$sum:'$scores'}
+        }
+    },
+    {
+        $set:{
+            promedio: { $avg: '$scores'}
+        }
+    }
+)
+
+//obtener el promedio de calificaciones de los usuarios cuyo promedio sea superior a 8
+
+db.users.aggregate(
+    {
+        $match:{
+            scores: {$exists: true}
+        }
+    },
+    {        
+        $project:{
+            _id:false, name:true, scores:true
+        }
+    },
+    {
+        $set:{
+            suma:{$sum:'$scores'}
+        }
+    },
+    {
+        $set:{
+            promedio: { $avg: '$scores'}
+        }
+    },
+    {
+        $match:{
+            promedio: {$gt: 8}
+        }
+    }
+)
