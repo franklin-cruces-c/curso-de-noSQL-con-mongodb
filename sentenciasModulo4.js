@@ -162,3 +162,53 @@ db.users.aggregate(
 
     ]
 ).pretty()
+
+
+/**
+ * Framework Agregate - Agregar campos a la query
+ */
+
+// Agregamos 3 nuevos campos en la lista de campos a mostrar
+db.users.aggregate(
+    [
+        {
+            $match: {
+                age:{ $gt:25} // se reduce a 3 documentos
+            }        
+        },
+        {
+            $match: {
+                courses: {$exists: true} // se reduce a 2 documentos
+            }
+        },
+        {
+            $project: {
+                _id:false, name:true, courses:true
+            }
+        },
+        {
+           $project: {
+                name: true, 
+                firstCourses: {
+                    $slice:['$courses',2]
+                }
+           }
+        },
+        {
+           $project: {
+                name: true, 
+                course: {
+                    $arrayElemAt:['$firstCourses',0]
+                }
+           }
+        },
+        {
+            $addFields:{
+                currentDate: new Date(),
+                suma: 10 +20,
+                newName: '$name'
+            }
+        }
+
+    ]
+).pretty()
