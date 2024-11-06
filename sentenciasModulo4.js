@@ -379,3 +379,73 @@ db.users.aggregate(
     ]
 )
 
+/**
+ * Operador Map
+ * aplica una expresion sobre cada uno de los elementos de la lista
+ */
+
+db.users.aggregate(
+    [
+        {
+           $match: {
+            scores: {$exists: true}
+           } 
+        },
+        {
+            $project:{
+                _id:false, name:true,  scores:true
+            }
+        },
+        {
+            $project:{
+                name:true,
+                scores:true,
+                newListScores:{
+                    $map:{
+                        input: '$scores', //entrada
+                        as:'calificacion', //alias
+                        // se multiplica cada uno de los elementos de la lista por 10, el doble $ indica que utiliza el alias
+                        in:{$multiply:['$$calificacion',10]} //expresion a aplicar para cada elemento
+                    }
+                }
+            }
+        }
+    ]
+)
+
+//{ "newListScores" : [ 50, 80, 60, 90, 100, 100, 100 ] }
+//{ "newListScores" : [ 50, 100, 60, 90, 80, 70, 70 ] }
+//{ "name" : "Fernando", "scores" : [ 5, 8, 6, 9, 10, 10, 10 ], "newListScores" : [ 50, 80, 60, 90, 100, 100, 100 ] }
+//{ "name" : "Uriel", "scores" : [ 5, 10, 6, 9, 8, 7, 7 ], "newListScores" : [ 50, 100, 60, 90, 80, 70, 70 ] }
+
+
+
+db.users.aggregate(
+    [
+        {
+            $match:{
+                courses:{$exists: true}
+            }
+        },
+        {
+            $project:{
+                _id:false, name:true, courses:true
+            }
+        },
+        {
+            $project:{
+                newList:{
+                    $map:{
+                        input:'$courses',
+                        as:'course',
+                        in:{$multiply:['$$course.progress',10]}
+                    }
+                }
+            }
+        }
+    ]
+)
+
+//{ "newList" : [ 500, 1000, 800 ] }
+//{ "newList" : [ 1000, 1000 ] }
+//{ "newList" : [ 500, 1000, 1000 ] }
